@@ -10,7 +10,7 @@ interface BookShowcaseProps {
   showAudioPlayer?: () => void;
 }
 
-const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
+const BookShowcase: React.FC<BookShowcaseProps> = () => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
 
