@@ -5,24 +5,33 @@ const Header: React.FC = () => {
 
   // Change nav background on scroll
   useEffect(() => {
+    const nav = document.querySelector(".main-nav");
+
     const handleScroll = (): void => {
-      const nav = document.querySelector(".main-nav");
-      if (window.scrollY > 50) {
-        if (nav) {
-          nav.setAttribute(
-            "style",
-            "background: rgba(46, 46, 46, 0.95); position: fixed; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);"
-          );
-        }
+      if (!nav) return;
+
+      const scrollY = window.scrollY;
+
+      if (scrollY === 0) {
+        nav.setAttribute(
+          "style",
+          "background: transparent; position: absolute; box-shadow: none;"
+        );
+      } else if (scrollY > 0 && scrollY <= 50) {
+        nav.setAttribute(
+          "style",
+          "background: rgba(139, 0, 0, 0.6); position: fixed; box-shadow: none;"
+        );
       } else {
-        if (nav) {
-          nav.setAttribute(
-            "style",
-            "background: rgba(46, 46, 46, 0.5); position: absolute; box-shadow: none;"
-          );
-        }
+        nav.setAttribute(
+          "style",
+          "background: rgba(139, 0, 0, 1); position: fixed; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);"
+        );
       }
     };
+
+    // Run once on initial load
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -44,7 +53,9 @@ const Header: React.FC = () => {
     <nav className="main-nav">
       <div className="nav-container">
         <div className="logo">
-          <a href="#hero-section">Mathew Moslow</a>
+          <a href="#hero-section" style={{ color: "white" }}>
+            Mathew Moslow
+          </a>
         </div>
         <div
           className={`menu-toggle ${isMenuOpen ? "is-active" : ""}`}
@@ -73,18 +84,6 @@ const Header: React.FC = () => {
           <li>
             <a href="#second-novel" className="nav-link" onClick={closeMenu}>
               Upcoming
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="nav-link cta js-audio-trigger"
-              onClick={(e) => {
-                e.preventDefault();
-                closeMenu();
-              }}
-            >
-              Listen Now
             </a>
           </li>
         </ul>

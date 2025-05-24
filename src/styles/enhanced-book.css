@@ -1,0 +1,204 @@
+/* Enhanced 3D Book Display Styles */
+.book-showcase,
+.second-novel {
+  position: relative;
+  overflow: hidden;
+}
+
+.book-showcase::before,
+.second-novel::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 107, 107, 0.05) 0%,
+    transparent 70%
+  );
+  animation: pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+/* 3D Book Display */
+.book-display {
+  position: relative;
+  perspective: 1200px;
+  max-width: 400px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+
+.book-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transform: rotateY(8deg) rotateX(2deg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 10px 20px -5px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.clickable-cover {
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.clickable-cover:hover .book-cover {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.6),
+    0 15px 35px -10px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Book Shadow Effect */
+.book-shadow {
+  position: absolute;
+  bottom: -30px;
+  left: 10%;
+  width: 80%;
+  height: 30px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.4) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  transform: rotateX(90deg) translateZ(-50px);
+  transition: all 0.6s ease;
+}
+
+.clickable-cover:hover .book-shadow {
+  transform: rotateX(90deg) translateZ(-60px) scale(1.1);
+  opacity: 0.8;
+}
+
+/* Cover Overlay with Glass Effect */
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 0, 0, 0.9) 0%,
+    rgba(255, 107, 107, 0.8) 100%
+  );
+  backdrop-filter: blur(10px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+
+.cover-overlay i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.cover-overlay span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transform: translateY(20px);
+  transition: transform 0.4s ease 0.1s;
+}
+
+.clickable-cover:hover .cover-overlay {
+  opacity: 1;
+}
+
+.clickable-cover:hover .cover-overlay i,
+.clickable-cover:hover .cover-overlay span {
+  transform: translateY(0);
+}
+
+/* Book Details Animation */
+.book-details {
+  animation: fadeInUp 0.8s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.book-title {
+  position: relative;
+  display: inline-block;
+}
+
+.book-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-red), transparent);
+  animation: expandWidth 1s ease 0.5s forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+@keyframes expandWidth {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Floating Animation for Elements */
+.book-actions {
+  animation: floatIn 1s ease 0.6s backwards;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive 3D adjustments */
+@media (max-width: 768px) {
+  .book-cover {
+    transform: rotateY(5deg) rotateX(1deg);
+  }
+
+  .book-display {
+    perspective: 800px;
+  }
+}

@@ -1,10 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlay,
+  faPause,
+  faForward,
+  faBackward,
+  faChevronRight,
+  faMusic,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Import local audio files
-import flgbAudio from "../assets/audio/flgb.mp3";
-import flgbSlowAudio from "../assets/audio/flgbslow.mp3";
-import lovelyMessAudio from "../assets/audio/lovelymess.mp3";
-import breathingAudio from "../assets/audio/breathing.mp3";
+import feelsLikeGoodbyeAudio from "../assets/audio/Feels Like Goodbye.mp3";
+import lovelyMessAudio from "../assets/audio/Lovely Mess.mp3";
+import whileImBreathingAudio from "../assets/audio/While Im Breathing.mp3";
+import feelsLikeGoodbyeOutroAudio from "../assets/audio/Feels Like Goodbye (Outro).mp3";
 import podcastAudio from "../assets/audio/Podcast_A Novel Divorce.wav";
 
 // Import local cover images
@@ -35,34 +44,27 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Create tracks array with proper type safety
+  const createTrack = (
+    audioFile: string | undefined,
+    title: string,
+    coverImage: string
+  ): Track | null => {
+    return audioFile ? { title, file: audioFile, cover: coverImage } : null;
+  };
+
   // Filter out tracks with missing audio files
   const tracks: Track[] = [
-    flgbAudio && {
-      title: "Feels Like Goodbye",
-      file: flgbAudio,
-      cover: flgbCover,
-    },
-    flgbSlowAudio && {
-      title: "Feels Like Goodbye (Slow)",
-      file: flgbSlowAudio,
-      cover: flgbCover,
-    },
-    lovelyMessAudio && {
-      title: "Lovely Mess",
-      file: lovelyMessAudio,
-      cover: lmCover,
-    },
-    breathingAudio && {
-      title: "Breathing",
-      file: breathingAudio,
-      cover: breathingCover,
-    },
-    podcastAudio && {
-      title: "Deep Dive (Podcast)",
-      file: podcastAudio,
-      cover: deepdiveCover,
-    },
-  ].filter(Boolean) as Track[];
+    createTrack(feelsLikeGoodbyeAudio, "Feels Like Goodbye", flgbCover),
+    createTrack(lovelyMessAudio, "Lovely Mess", lmCover),
+    createTrack(whileImBreathingAudio, "While I'm Breathing", breathingCover),
+    createTrack(
+      feelsLikeGoodbyeOutroAudio,
+      "Feels Like Goodbye (Outro)",
+      flgbCover
+    ),
+    createTrack(podcastAudio, "Deep Dive (Podcast)", deepdiveCover),
+  ].filter((track): track is Track => track !== null);
 
   const formatTime = (seconds: number): string => {
     if (!seconds || !isFinite(seconds)) return "00:00";
@@ -79,13 +81,21 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
 
     setCurrentTrackIndex(index);
 
-    if (audioRef.current && tracks[index]?.file) {
-      audioRef.current.src = tracks[index].file;
-      audioRef.current.load();
-      setIsLoaded(true);
+    if (audioRef.current && tracks[index] && tracks[index].file) {
+      try {
+        audioRef.current.src = tracks[index].file;
+        audioRef.current.load();
+        setIsLoaded(true);
 
-      if (isPlaying) {
-        audioRef.current.play().catch(console.error);
+        if (isPlaying) {
+          audioRef.current.play().catch((error) => {
+            console.error("Error playing audio:", error);
+            setIsPlaying(false);
+          });
+        }
+      } catch (error) {
+        console.error("Error loading track:", error);
+        setIsLoaded(false);
       }
     }
   };
@@ -95,11 +105,15 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
 
     if (!isLoaded) {
       loadTrack(currentTrackIndex);
+      return;
     }
 
     if (audioRef.current) {
       if (audioRef.current.paused) {
-        audioRef.current.play().catch(console.error);
+        audioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+          setIsPlaying(false);
+        });
         setIsPlaying(true);
       } else {
         audioRef.current.pause();
@@ -153,6 +167,8 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
     return null;
   }
 
+  const currentTrack = tracks[currentTrackIndex] || tracks[0];
+
   return (
     <div
       className={`sidebar-player ${isVisible ? "visible" : ""} ${
@@ -160,26 +176,29 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
       }`}
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
+      style={{ top: "100px" }}
     >
       {/* Collapsed State */}
       <div className="sidebar-collapsed">
         <div className="sidebar-tab" onClick={() => setIsExpanded(!isExpanded)}>
-          <i className="fas fa-music"></i>
+          <FontAwesomeIcon icon={faMusic} />
           <span className="tab-text">SOUNDTRACK</span>
         </div>
 
         <div className="mini-controls">
           <button className="sidebar-play-btn" onClick={togglePlay}>
-            <i className={`fas fa-${isPlaying ? "pause" : "play"}`}></i>
+            <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
           </button>
         </div>
 
         <div className="current-track-mini">
-          <img
-            src={tracks[currentTrackIndex]?.cover}
-            alt="Current track"
-            className="mini-cover-img"
-          />
+          {currentTrack && (
+            <img
+              src={currentTrack.cover}
+              alt="Current track"
+              className="mini-cover-img"
+            />
+          )}
         </div>
       </div>
 
@@ -188,30 +207,46 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
         <div className="sidebar-header">
           <h4>Soundtrack to the Book</h4>
           <button className="collapse-btn" onClick={() => setIsExpanded(false)}>
-            <i className="fas fa-chevron-right"></i>
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
 
         <div className="current-track-display">
-          <img
-            src={tracks[currentTrackIndex]?.cover}
-            alt={`${tracks[currentTrackIndex]?.title} cover`}
-            className="track-cover-large"
-          />
-          <div className="track-info">
-            <h5 className="track-title">{tracks[currentTrackIndex]?.title}</h5>
-          </div>
+          {currentTrack && (
+            <>
+              <img
+                src={currentTrack.cover}
+                alt={`${currentTrack.title} cover`}
+                className="track-cover-large"
+              />
+              <div className="track-info">
+                <h5 className="track-title">{currentTrack.title}</h5>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="player-controls">
-          <button className="control-btn" onClick={prevTrack}>
-            <i className="fas fa-backward"></i>
+          <button
+            className="control-btn"
+            onClick={prevTrack}
+            title="Previous Track"
+          >
+            <FontAwesomeIcon icon={faBackward} />
           </button>
-          <button className="control-btn play-btn" onClick={togglePlay}>
-            <i className={`fas fa-${isPlaying ? "pause" : "play"}`}></i>
+          <button
+            className="control-btn play-btn"
+            onClick={togglePlay}
+            title={isPlaying ? "Pause" : "Play"}
+          >
+            <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
           </button>
-          <button className="control-btn" onClick={nextTrack}>
-            <i className="fas fa-forward"></i>
+          <button
+            className="control-btn"
+            onClick={nextTrack}
+            title="Next Track"
+          >
+            <FontAwesomeIcon icon={faForward} />
           </button>
         </div>
 
@@ -249,8 +284,13 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
       </div>
 
       <audio ref={audioRef}>
-        {isLoaded && tracks[currentTrackIndex]?.file && (
-          <source src={tracks[currentTrackIndex].file} type="audio/mpeg" />
+        {isLoaded && currentTrack && (
+          <source
+            src={currentTrack.file}
+            type={
+              currentTrack.file.endsWith(".wav") ? "audio/wav" : "audio/mpeg"
+            }
+          />
         )}
       </audio>
     </div>

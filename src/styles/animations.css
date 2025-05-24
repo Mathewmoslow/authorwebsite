@@ -1,0 +1,41 @@
+/* src/styles/animations.css */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.book-display {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.book-display:hover {
+  transform: perspective(1000px) rotateY(10deg) translateZ(20px);
+}
+
+.headshot-container {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.headshot-container:hover {
+  transform: perspective(1000px) rotateY(-10deg) translateZ(30px);
+}
+
+/* Add 3D card effect */
+.book-actions .btn,
+.book-retailers a {
+  transition: transform 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.book-actions .btn:hover,
+.book-retailers a:hover {
+  transform: perspective(1000px) translateZ(20px);
+}

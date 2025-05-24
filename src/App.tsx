@@ -11,11 +11,13 @@ import { useAppContext } from "./context/AppContext";
 import "./index.css";
 
 function App() {
-  const { isAudioPlayerVisible, setAudioPlayerVisible } = useAppContext();
+  const { setAudioPlayerVisible } = useAppContext();
 
   useEffect(() => {
     document.title = "Mathew Moslow | Author";
-  }, []);
+    // Make the sidebar media player visible by default
+    setAudioPlayerVisible(true);
+  }, [setAudioPlayerVisible]);
 
   const showAudioPlayer = () => {
     setAudioPlayerVisible(true);
@@ -28,7 +30,7 @@ function App() {
       <BookShowcase showAudioPlayer={showAudioPlayer} />
       <About />
       <SecondNovel />
-      <SidebarMediaPlayer isVisible={isAudioPlayerVisible} />
+      <SidebarMediaPlayer isVisible={true} />
       <Footer />
     </div>
   );
