@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import authorImage from "../assets/images/headshot.jpeg";
 import "../styles/enhanced-about.css";
 import "../styles/animations.css";
