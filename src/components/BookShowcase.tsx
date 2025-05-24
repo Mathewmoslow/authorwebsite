@@ -2,17 +2,31 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAmazon, faApple } from "@fortawesome/free-brands-svg-icons";
 import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
+import "../styles/enhanced-book.css";
+import "../styles/animations.css";
 import PageTurner from "./PageTurner";
 import AudioPreview from "./AudioPreview";
+import ContactModal from "./ContactModal";
 import bookCover from "../assets/images/IMG_1357.jpeg";
+import { useAppContext } from "../context/AppContext";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface BookShowcaseProps {
   showAudioPlayer?: () => void;
 }
 
-const BookShowcase: React.FC<BookShowcaseProps> = () => {
+const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
+  const [showNotifyModal, setShowNotifyModal] = useState<boolean>(false);
+
+  // Get only the context function we need
+  const { setAudioPlayerVisible } = useAppContext();
+
+  const sectionRef = useScrollAnimation<HTMLElement>({
+    perspective: 1200,
+    rotation: 10,
+  });
 
   const togglePreview = (): void => {
     setShowPreview(!showPreview);
@@ -25,15 +39,29 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
   const handleAudioPreview = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setIsAudioPlaying(!isAudioPlaying);
+
+    // Make the player visible using context
+    setAudioPlayerVisible(true);
+
+    // Call the prop function if provided (for compatibility)
+    if (showAudioPlayer) {
+      showAudioPlayer();
+    }
+  };
+
+  const handleBuyNowClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault();
+    setShowNotifyModal(true);
   };
 
   return (
     <section
+      ref={sectionRef}
       className="book-showcase section-padding full-width"
       id="novel-hero"
     >
       <div className="grid-container">
-        <div className="grid-item-6 book-image">
+        <div className="grid-item-6 book-image animate-on-scroll">
           <div
             className="book-display clickable-cover"
             onClick={handleCoverClick}
@@ -52,29 +80,29 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
           </div>
         </div>
         <div className="grid-item-6 book-details">
-          <h1 className="book-title">A Novel Divorce</h1>
-          <p className="book-tagline">
-            A raw, unflinching memoir of love, betrayal, and self-discovery
+          <h1 className="book-title animate-on-scroll">A Novel Divorce</h1>
+          <p className="book-tagline animate-on-scroll">
+            A raw, unflinching memoir of love transforming, and self-discovery
           </p>
           <div className="book-description">
-            <p>
-              This isn't just a breakup story. It's what happens when love
-              disfigures—when a relationship collapses under the weight of
-              desire, and everything left unsaid.
+            <p className="animate-on-scroll">
+              This isn't just a breakup story. It's what happens when the love
+              you thought you had, changes. A relationship collapses under the
+              weight of a shared desire for more.
             </p>
-            <p>
+            <p className="animate-on-scroll">
               At its center: a descent. Nights that unravel into hallucination,
               encounters that erase more than they fulfill, and rumors too
               disturbing to speak aloud. A prison. A brush with death. A truth
               that refuses to behave.
             </p>
-            <p>
+            <p className="animate-on-scroll">
               A Novel Divorce is a story of survival. Written with razor-wire
               honesty and noir clarity, this is the tale of two lovers scorched
               by the same fire, emerging not as what they once were, but as
               something new. Not reunited, but redefined.
             </p>
-            <p>
+            <p className="animate-on-scroll">
               What remains once the flames cool and the charred debris can be
               sifted through isn't romance, it's pure reckoning—and from it, we
               get a Novel kind of relationship.
@@ -87,13 +115,14 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
             onPlayStateChange={setIsAudioPlaying}
           />
 
-          <div className="book-actions">
-            <a href="#" className="btn btn-primary">
-              Buy Now
+          <div className="book-actions animate-on-scroll">
+            <a href="#" className="btn btn-primary" onClick={handleBuyNowClick}>
+              Notify Me
             </a>
             <button onClick={togglePreview} className="btn btn-secondary">
               Read Preview
             </button>
+
             <a
               href="#"
               className="btn btn-tertiary"
@@ -103,7 +132,7 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
               {isAudioPlaying ? "Stop" : "Listen to"} Preview
             </a>
           </div>
-          <div className="book-retailers">
+          <div className="book-retailers animate-on-scroll">
             <span>Available at:</span>
             <a href="#" className="retailer-link" title="Amazon">
               <FontAwesomeIcon icon={faAmazon} />
@@ -128,6 +157,13 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
           closePreview={togglePreview}
         />
       )}
+
+      <ContactModal
+        isOpen={showNotifyModal}
+        onClose={() => setShowNotifyModal(false)}
+        modalType="notify"
+        bookTitle="A Novel Divorce"
+      />
     </section>
   );
 };
