@@ -86,26 +86,34 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
           </p>
           <div className="book-description">
             <p className="animate-on-scroll">
-              This isn't just a breakup story. It's what happens when the love
-              you thought you had, changes. A relationship collapses under the
-              weight of a shared desire for more.
+              A Novel Divorce is the story of a life that doesn’t so much fall
+              apart as it unravels—slowly, privately, and with devastating
+              precision.
             </p>
             <p className="animate-on-scroll">
-              At its center: a descent. Nights that unravel into hallucination,
-              encounters that erase more than they fulfill, and rumors too
-              disturbing to speak aloud. A prison. A brush with death. A truth
-              that refuses to behave.
+              It begins in smoke-thick bars and borrowed beds, where love is a
+              rumor and youth feels endless. Eventually, the noise is quieted by
+              a wedding ring—or so it seems. But marriage doesn’t erase chaos;
+              it only mutes it. Mornings blur into hangovers, affection into
+              obligation. By the time the divorce papers arrive, the loss is
+              clear, final, and strangely lucid.
             </p>
             <p className="animate-on-scroll">
-              A Novel Divorce is a story of survival. Written with razor-wire
-              honesty and noir clarity, this is the tale of two lovers scorched
-              by the same fire, emerging not as what they once were, but as
-              something new. Not reunited, but redefined.
+              But this isn’t a memoir about collapse. It’s about what happens
+              next.
             </p>
             <p className="animate-on-scroll">
-              What remains once the flames cool and the charred debris can be
-              sifted through isn't romance, it's pure reckoning—and from it, we
-              get a Novel kind of relationship.
+              What follows is a meticulous rebuild: therapy, sobriety, and an
+              unexpected friendship between two people who refuse to let their
+              shared past become a battlefield. With grace and candor, A Novel
+              Divorce charts how failure—when met without self-pity—can make
+              room for something more durable. Not redemption, exactly, but a
+              quieter kind of truth. A self reclaimed. A bond reshaped.
+            </p>
+            <p className="animate-on-scroll">
+              Unsentimental, quietly hopeful, and razor-sharp in its honesty,
+              this is a story about how endings—when faced with eyes open—can
+              become the most radical kind of beginning.
             </p>
           </div>
 
