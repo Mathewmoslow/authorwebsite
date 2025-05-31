@@ -12,7 +12,7 @@ type Post = {
   _id: string;
   title: string;
   content: string;
-  image: string;
+  image?: string;
   createdAt: string;
 };
 
@@ -24,29 +24,37 @@ export default function PostView() {
   const [nextPost, setNextPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    fetchPost();
+    if (id) {
+      fetchPost();
+    }
   }, [id]);
 
   const fetchPost = async () => {
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE || "http://localhost:4000"}/api/posts`
-      );
-      const data = await res.json();
-      setAllPosts(data);
+      // Get the API base URL from environment or use localhost fallback
+      const apiBase = import.meta.env.VITE_API_BASE || "http://localhost:4000";
 
-      const currentIndex = data.findIndex((p: Post) => p._id === id);
-      const currentPost = data[currentIndex];
+      const res = await fetch(`${apiBase}/api/posts`);
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const allPosts: Post[] = await res.json();
+
+      // Find current post and navigation posts
+      const currentIndex = allPosts.findIndex((p: Post) => p._id === id);
+      const currentPost = allPosts[currentIndex];
 
       if (currentPost) {
         setPost(currentPost);
 
-        // Set previous and next posts
+        // Set previous and next posts (newer posts have lower index)
         if (currentIndex > 0) {
-          setNextPost(data[currentIndex - 1]);
+          setNextPost(allPosts[currentIndex - 1]); // Newer post
         }
-        if (currentIndex < data.length - 1) {
-          setPrevPost(data[currentIndex + 1]);
+        if (currentIndex < allPosts.length - 1) {
+          setPrevPost(allPosts[currentIndex + 1]); // Older post
         }
       }
     } catch (error) {
