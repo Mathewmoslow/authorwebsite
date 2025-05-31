@@ -86,6 +86,16 @@ const Header: React.FC = () => {
               Upcoming
             </a>
           </li>
+          <li>
+            <a href="/blog" className="nav-link" onClick={closeMenu}>
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="/admin" className="nav-link" onClick={closeMenu}>
+              Login
+            </a>
+          </li>
         </ul>
       </div>
     </nav>

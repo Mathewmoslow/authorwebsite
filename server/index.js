@@ -8,7 +8,11 @@ const cloudinary = require("cloudinary").v2;
 const sanitizeHtml = require("sanitize-html");
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: true, // Allows all origins
+  })
+);
 app.use(express.json());
 
 // Cloudinary config

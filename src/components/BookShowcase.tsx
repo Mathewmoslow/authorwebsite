@@ -1,27 +1,18 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAmazon, faApple } from "@fortawesome/free-brands-svg-icons";
-import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import PageTurner from "./PageTurner";
 import AudioPreview from "./AudioPreview";
 import ContactModal from "./ContactModal";
 import bookCover from "../assets/images/IMG_1357.jpeg";
-import { useAppContext } from "../context/AppContext";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-interface BookShowcaseProps {
-  showAudioPlayer?: () => void;
-}
-
-const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
+const BookShowcase: React.FC = () => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [showNotifyModal, setShowNotifyModal] = useState<boolean>(false);
-
-  // Get only the context function we need
-  const { setAudioPlayerVisible } = useAppContext();
 
   const sectionRef = useScrollAnimation<HTMLElement>({
     perspective: 1200,
@@ -30,23 +21,6 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
 
   const togglePreview = (): void => {
     setShowPreview(!showPreview);
-  };
-
-  const handleCoverClick = (): void => {
-    setShowPreview(true);
-  };
-
-  const handleAudioPreview = (e: React.MouseEvent<HTMLAnchorElement>): void => {
-    e.preventDefault();
-    setIsAudioPlaying(!isAudioPlaying);
-
-    // Make the player visible using context
-    setAudioPlayerVisible(true);
-
-    // Call the prop function if provided (for compatibility)
-    if (showAudioPlayer) {
-      showAudioPlayer();
-    }
   };
 
   const handleBuyNowClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -62,21 +36,13 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
     >
       <div className="grid-container">
         <div className="grid-item-6 book-image animate-on-scroll">
-          <div
-            className="book-display clickable-cover"
-            onClick={handleCoverClick}
-            title="Click to read preview"
-          >
+          <div className="book-display">
             <img
               src={bookCover}
               alt="A Novel Divorce Cover"
               className="book-cover"
             />
             <div className="book-shadow"></div>
-            <div className="cover-overlay">
-              <i className="fas fa-book-open"></i>
-              <span>Click to Preview</span>
-            </div>
           </div>
         </div>
         <div className="grid-item-6 book-details">
@@ -86,20 +52,20 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
           </p>
           <div className="book-description">
             <p className="animate-on-scroll">
-              A Novel Divorce is the story of a life that doesn’t so much fall
+              A Novel Divorce is the story of a life that doesn't so much fall
               apart as it unravels—slowly, privately, and with devastating
               precision.
             </p>
             <p className="animate-on-scroll">
               It begins in smoke-thick bars and borrowed beds, where love is a
               rumor and youth feels endless. Eventually, the noise is quieted by
-              a wedding ring—or so it seems. But marriage doesn’t erase chaos;
+              a wedding ring—or so it seems. But marriage doesn't erase chaos;
               it only mutes it. Mornings blur into hangovers, affection into
               obligation. By the time the divorce papers arrive, the loss is
               clear, final, and strangely lucid.
             </p>
             <p className="animate-on-scroll">
-              But this isn’t a memoir about collapse. It’s about what happens
+              But this isn't a memoir about collapse. It's about what happens
               next.
             </p>
             <p className="animate-on-scroll">
@@ -130,15 +96,6 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
             <button onClick={togglePreview} className="btn btn-secondary">
               Read Preview
             </button>
-
-            <a
-              href="#"
-              className="btn btn-tertiary"
-              onClick={handleAudioPreview}
-            >
-              <FontAwesomeIcon icon={faHeadphones} />
-              {isAudioPlaying ? "Stop" : "Listen to"} Preview
-            </a>
           </div>
           <div className="book-retailers animate-on-scroll">
             <span>Available at:</span>

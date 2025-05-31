@@ -6,8 +6,6 @@ import novelCover from "../assets/images/ayad.png";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
 
 const SecondNovel: React.FC = () => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
@@ -23,14 +21,6 @@ const SecondNovel: React.FC = () => {
     setShowPreview(!showPreview);
   };
 
-  const handleCoverClick = (): void => {
-    setShowPreview(true);
-  };
-
-  const handleAudioPreview = (): void => {
-    setIsAudioPlaying(!isAudioPlaying);
-  };
-
   const handleNotifyClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setShowContactModal(true);
@@ -44,21 +34,13 @@ const SecondNovel: React.FC = () => {
     >
       <div className="grid-container">
         <div className="grid-item-4 book-image animate-on-scroll">
-          <div
-            className="book-display clickable-cover"
-            onClick={handleCoverClick}
-            title="Click to read preview"
-          >
+          <div className="book-display">
             <img
               src={novelCover}
               alt="A Year and a Day Cover"
               className="book-cover"
             />
             <div className="book-shadow"></div>
-            <div className="cover-overlay">
-              <i className="fas fa-book-open"></i>
-              <span>Click to Preview</span>
-            </div>
           </div>
         </div>
         <div className="grid-item-8 book-details">
@@ -95,10 +77,6 @@ const SecondNovel: React.FC = () => {
             </a>
             <button onClick={togglePreview} className="btn btn-secondary">
               Sneak Peek
-            </button>
-            <button onClick={handleAudioPreview} className="btn btn-tertiary">
-              <FontAwesomeIcon icon={faHeadphones} />
-              {isAudioPlaying ? "Stop" : "Listen to"} Preview
             </button>
           </div>
         </div>

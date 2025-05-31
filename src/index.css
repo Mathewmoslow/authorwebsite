@@ -1,5 +1,6 @@
 /* Global styles for Mathew Moslow Author Site */
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
+@import "./styles/blog.css";
 
 * {
   margin: 0;
@@ -318,48 +319,6 @@ p {
   transform-style: preserve-3d;
 }
 
-.clickable-cover {
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.clickable-cover:hover {
-  transform: scale(1.02);
-}
-
-.cover-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(139, 0, 0, 0.9);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-}
-
-.clickable-cover:hover .cover-overlay {
-  opacity: 1;
-}
-
-.cover-overlay i {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.cover-overlay span {
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 .book-cover {
   width: 100%;
   height: auto;
@@ -367,10 +326,6 @@ p {
   border-radius: 4px;
   transform: rotateY(5deg);
   transition: transform 0.5s ease;
-}
-
-.book-cover:hover {
-  transform: rotateY(0deg) scale(1.02);
 }
 
 .book-shadow {
