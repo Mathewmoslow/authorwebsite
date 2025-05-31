@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     "import.meta.env.VITE_API_BASE": JSON.stringify(
-      "https://authorwebsite-2a2r.onrender.com"
+      "https://authorwebsite-7u6p.onrender.com/"
     ),
   },
 });

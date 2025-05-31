@@ -17,7 +17,7 @@ export default function BlogList() {
   useEffect(() => {
     const apiBase =
       import.meta.env.VITE_API_BASE ||
-      "https://authorwebsite-2a2r.onrender.com";
+      "https://authorwebsite-7u6p.onrender.com/";
     console.log("Using API Base:", apiBase); // Debug line
 
     fetch(`${apiBase}/api/posts`)
