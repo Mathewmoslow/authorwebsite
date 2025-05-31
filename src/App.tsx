@@ -33,7 +33,7 @@ function MainPageLayout() {
     <>
       <Header />
       <Hero />
-      <BookShowcase showAudioPlayer={showAudioPlayer} />
+      <BookShowcase />
       <About />
       <SecondNovel />
       <SidebarMediaPlayer isVisible={true} />

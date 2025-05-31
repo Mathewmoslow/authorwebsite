@@ -19,7 +19,6 @@ type Post = {
 export default function PostView() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<Post | null>(null);
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [prevPost, setPrevPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
