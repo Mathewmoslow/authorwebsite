@@ -12,53 +12,60 @@ type Post = {
   _id: string;
   title: string;
   content: string;
-  image?: string;
+  image: string;
   createdAt: string;
 };
 
 export default function PostView() {
   const { id } = useParams<{ id: string }>();
   const [post, setPost] = useState<Post | null>(null);
+  const [, setAllPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [prevPost, setPrevPost] = useState<Post | null>(null);
   const [nextPost, setNextPost] = useState<Post | null>(null);
 
+  const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
   useEffect(() => {
-    if (id) {
-      fetchPost();
-    }
+    fetchPost();
   }, [id]);
 
   const fetchPost = async () => {
+    if (!id) return;
+    
     try {
-      // Get the API base URL from environment or use localhost fallback
-      const apiBase = import.meta.env.VITE_API_BASE || "http://localhost:4000";
-
-      const res = await fetch(`${apiBase}/api/posts`);
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+      // Fetch the specific post
+      const postRes = await fetch(`${API_BASE}/api/posts/${id}`);
+      if (!postRes.ok) {
+        throw new Error('Post not found');
       }
+      const postData = await postRes.json();
+      setPost(postData);
 
-      const allPosts: Post[] = await res.json();
+      // Fetch all posts for navigation
+      const allPostsRes = await fetch(`${API_BASE}/api/posts`);
+      const allPostsData = await allPostsRes.json();
+      setAllPosts(allPostsData);
 
-      // Find current post and navigation posts
-      const currentIndex = allPosts.findIndex((p: Post) => p._id === id);
-      const currentPost = allPosts[currentIndex];
-
-      if (currentPost) {
-        setPost(currentPost);
-
+      // Find current post index and set prev/next
+      const currentIndex = allPostsData.findIndex((p: Post) => p._id === id);
+      if (currentIndex !== -1) {
         // Set previous and next posts (newer posts have lower index)
         if (currentIndex > 0) {
-          setNextPost(allPosts[currentIndex - 1]); // Newer post
+          setNextPost(allPostsData[currentIndex - 1]);
+        } else {
+          setNextPost(null);
         }
-        if (currentIndex < allPosts.length - 1) {
-          setPrevPost(allPosts[currentIndex + 1]); // Older post
+        
+        if (currentIndex < allPostsData.length - 1) {
+          setPrevPost(allPostsData[currentIndex + 1]);
+        } else {
+          setPrevPost(null);
         }
       }
     } catch (error) {
       console.error("Error fetching post:", error);
+      setPost(null);
     } finally {
       setLoading(false);
     }
@@ -127,7 +134,7 @@ export default function PostView() {
 
       <nav className="post-navigation">
         {prevPost ? (
-          <Link to={`/blog/post/${prevPost._id}`} className="post-nav-link">
+          <Link to={`/post/${prevPost._id}`} className="post-nav-link">
             <FontAwesomeIcon icon={faChevronLeft} />
             <div>
               <small>Previous Post</small>
@@ -139,7 +146,7 @@ export default function PostView() {
         )}
 
         {nextPost ? (
-          <Link to={`/blog/post/${nextPost._id}`} className="post-nav-link">
+          <Link to={`/post/${nextPost._id}`} className="post-nav-link">
             <div style={{ textAlign: "right" }}>
               <small>Next Post</small>
               <div>{nextPost.title}</div>

@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent, useRef } from "react";
+import { useState, FormEvent, ChangeEvent, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,6 +13,23 @@ export default function Admin() {
   const contentEditableRef = useRef<HTMLDivElement>(null);
 
   const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:4000";
+
+  // Debug logging
+  useEffect(() => {
+    console.log('🔧 Debug Info:');
+    console.log('API_BASE:', API_BASE);
+    console.log('VITE_API_BASE env var:', import.meta.env.VITE_API_BASE);
+    console.log('All env vars:', import.meta.env);
+    
+    // Test backend connection
+    fetch(`${API_BASE}/api/posts`)
+      .then(res => {
+        console.log('✅ Backend connection test:', res.status, res.statusText);
+        return res.json();
+      })
+      .then(data => console.log('📝 Current posts:', data))
+      .catch(err => console.error('❌ Backend connection failed:', err));
+  }, [API_BASE]);
 
   const handleTokenChange = (e: ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value);
@@ -39,16 +56,29 @@ export default function Admin() {
 
   const handleImageUpload = async (): Promise<string> => {
     if (!image) return "";
+    
+    console.log('📤 Uploading image...');
     const formData = new FormData();
     formData.append("image", image);
 
-    const res = await fetch(`${API_BASE}/api/upload`, {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const res = await fetch(`${API_BASE}/api/upload`, {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
-    return data.url;
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || `Upload failed: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log('✅ Image uploaded:', data.url);
+      return data.url;
+    } catch (error) {
+      console.error('❌ Image upload failed:', error);
+      throw error;
+    }
   };
 
   const resetForm = () => {
@@ -83,7 +113,12 @@ export default function Admin() {
     setMessage({ type: "", text: "" });
 
     try {
+      console.log('🚀 Starting post creation...');
+      
+      // Upload image first if present
       const imageUrl = image ? await handleImageUpload() : "";
+
+      console.log('📝 Creating post with data:', { title, imageUrl, contentLength: content.length });
 
       const res = await fetch(`${API_BASE}/api/posts`, {
         method: "POST",
@@ -98,7 +133,11 @@ export default function Admin() {
         }),
       });
 
+      console.log('📡 Post creation response:', res.status, res.statusText);
+
       if (res.ok) {
+        const newPost = await res.json();
+        console.log('✅ Post created successfully:', newPost);
         setMessage({ type: "success", text: "Post published successfully!" });
         resetForm();
 
@@ -107,14 +146,19 @@ export default function Admin() {
           setMessage({ type: "", text: "" });
         }, 5000);
       } else {
-        const error = await res.json();
+        const errorData = await res.json();
+        console.error('❌ Post creation failed:', errorData);
         setMessage({
           type: "error",
-          text: error.message || "Failed to create post. Check your token.",
+          text: errorData.message || "Failed to create post. Check your token.",
         });
       }
     } catch (error) {
-      setMessage({ type: "error", text: "Network error. Please try again." });
+      console.error('❌ Network error:', error);
+      setMessage({ 
+        type: "error", 
+        text: `Network error: ${error instanceof Error ? error.message : 'Please try again.'}` 
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -139,6 +183,14 @@ export default function Admin() {
       <div className="admin-header">
         <h2>Create Blog Post</h2>
         <p className="admin-subtitle">Share your thoughts with the world</p>
+        <div style={{ 
+          fontSize: '12px', 
+          color: '#666', 
+          marginTop: '8px',
+          fontFamily: 'monospace'
+        }}>
+          API: {API_BASE}
+        </div>
       </div>
 
       <form className="admin-form" onSubmit={handleSubmit}>

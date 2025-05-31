@@ -8,11 +8,13 @@ const cloudinary = require("cloudinary").v2;
 const sanitizeHtml = require("sanitize-html");
 
 const app = express();
-app.use(
-  cors({
-    origin: true, // Allows all origins
-  })
-);
+app.use(cors({
+  origin: [
+    'https://blogsetup.d175uekobpa6wg.amplifyapp.com',
+    'http://localhost:5173'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Cloudinary config
@@ -53,6 +55,19 @@ const authenticate = (req, res, next) => {
 app.get("/api/posts", async (req, res) => {
   const posts = await Post.find().sort({ createdAt: -1 });
   res.json(posts);
+});
+
+// Get single post by ID
+app.get("/api/posts/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.json(post);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching post", error: error.message });
+  }
 });
 
 app.post("/api/posts", authenticate, async (req, res) => {
