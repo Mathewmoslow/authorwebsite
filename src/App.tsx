@@ -25,10 +25,6 @@ function MainPageLayout() {
     setAudioPlayerVisible(true);
   }, [setAudioPlayerVisible]);
 
-  const showAudioPlayer = () => {
-    setAudioPlayerVisible(true);
-  };
-
   return (
     <>
       <Header />
@@ -50,7 +46,7 @@ function App() {
         <Route path="/" element={<MainPageLayout />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/blog" element={<BlogList />} />
-        <Route path="/post/:id" element={<PostView />} />
+        <Route path="/blog/post/:id" element={<PostView />} />
       </Routes>
     </Router>
   );
