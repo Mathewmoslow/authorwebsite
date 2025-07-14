@@ -10,15 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./MinimalAudioPlayer.css";
 
-// Fix: Change from "./assets" to "../assets" (go up one directory)
-//import feelsLikeGoodbyeAudio from "../assets/audio/feelslikegoodbye.mp3";
-//import lovelyMessAudio from "../assets/audio/lovelymess.mp3";
-//import whileImBreathingAudio from "../assets/audio/breathing.mp3";
-
-// Alternative: If files are in public/audio/, use direct URLs
+// Audio files from public directory
 const feelsLikeGoodbyeAudio = "/audio/feelslikegoodbye.mp3";
 const lovelyMessAudio = "/audio/lovelymess.mp3";
 const whileImBreathingAudio = "/audio/breathing.mp3";
+const fineWineAudio = "/audio/finewinesandfinelines.mp3";
+const podcastAudio = "/audio/podcast.mp3";
 
 interface Track {
   title: string;
@@ -41,10 +38,13 @@ const MinimalAudioPlayer: React.FC<MinimalAudioPlayerProps> = ({
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Tracks array with all songs, podcast last
   const tracks: Track[] = [
     { title: "Feels Like Goodbye", file: feelsLikeGoodbyeAudio },
     { title: "Lovely Mess", file: lovelyMessAudio },
     { title: "While I'm Breathing", file: whileImBreathingAudio },
+    { title: "Fine Wine and Fine Lines", file: fineWineAudio },
+    { title: "Deep Dive Podcast", file: podcastAudio },
   ];
 
   const formatTime = (seconds: number): string => {

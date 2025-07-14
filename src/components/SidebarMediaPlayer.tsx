@@ -9,17 +9,19 @@ import {
   faMusic,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Using files from public directories
+// Audio files from public directory
 const feelsLikeGoodbyeAudio = "/audio/feelslikegoodbye.mp3";
 const lovelyMessAudio = "/audio/lovelymess.mp3";
 const whileImBreathingAudio = "/audio/breathing.mp3";
-
+const fineWineAudio = "/audio/finewinesandfinelines.mp3";
+const podcastAudio = "/audio/podcast.mp3";
 
 // Cover images from public directory
 const flgbCover = "/images/flgb2.jpeg";
 const lmCover = "/images/LMCOVER2.png";
 const breathingCover = "/images/breathing2.jpeg";
-
+const wineLinesCover = "/images/wineandlines.png";
+const deepdiveCover = "/images/deepdive.png";
 
 interface Track {
   title: string;
@@ -43,12 +45,13 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
   
   const audioRef = useRef<HTMLAudioElement>(null);
   
-  // Direct tracks array - no need for createTrack function with public URLs
+  // Tracks array with all songs, podcast last
   const tracks: Track[] = [
     { title: "Feels Like Goodbye", file: feelsLikeGoodbyeAudio, cover: flgbCover },
     { title: "Lovely Mess", file: lovelyMessAudio, cover: lmCover },
     { title: "While I'm Breathing", file: whileImBreathingAudio, cover: breathingCover },
-    // { title: "Deep Dive (Podcast)", file: podcastAudio, cover: deepdiveCover }, // Uncomment if you have the podcast file
+    { title: "Fine Wine and Fine Lines", file: fineWineAudio, cover: wineLinesCover },
+    { title: "Deep Dive Podcast", file: podcastAudio, cover: deepdiveCover },
   ];
   
   const formatTime = (seconds: number): string => {
