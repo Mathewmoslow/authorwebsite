@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
         <div className="footer-content">
           <div className="footer-logo">
             <h3>Mathew Moslow</h3>
-            <p className="tagline">Author & Researcher</p>
+            <p className="tagline">Author & Research Enthusiast</p>
           </div>
 
           <div className="footer-links">
@@ -31,6 +31,7 @@ const Footer: React.FC = () => {
               <li>
                 <a href="#about">About</a>
               </li>
+              <li><a href="#research">Research</a></li>
               <li>
                 <a href="#contact">Contact</a>
               </li>

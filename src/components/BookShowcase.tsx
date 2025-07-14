@@ -1,59 +1,57 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAmazon, faApple } from "@fortawesome/free-brands-svg-icons";
-import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import PageTurner from "./PageTurner";
-import AudioPreview from "./AudioPreview";
 import ContactModal from "./ContactModal";
 import bookCover from "../assets/images/IMG_1357.jpeg";
-import { useAppContext } from "../context/AppContext";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import novelDivorceSnippet from "../assets/audio/noveldivorcesnippet.mp3";
 
 interface BookShowcaseProps {
   showAudioPlayer?: () => void;
 }
 
-const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
+const BookShowcase: React.FC<BookShowcaseProps> = () => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [showNotifyModal, setShowNotifyModal] = useState<boolean>(false);
-
-  // Get only the context function we need
-  const { setAudioPlayerVisible } = useAppContext();
-
+  const [audioPlayer] = useState(() => new Audio(novelDivorceSnippet));
+  
   const sectionRef = useScrollAnimation<HTMLElement>({
     perspective: 1200,
     rotation: 10,
   });
-
+  
   const togglePreview = (): void => {
     setShowPreview(!showPreview);
   };
-
+  
   const handleCoverClick = (): void => {
     setShowPreview(true);
   };
-
-  const handleAudioPreview = (e: React.MouseEvent<HTMLAnchorElement>): void => {
-    e.preventDefault();
-    setIsAudioPlaying(!isAudioPlaying);
-
-    // Make the player visible using context
-    setAudioPlayerVisible(true);
-
-    // Call the prop function if provided (for compatibility)
-    if (showAudioPlayer) {
-      showAudioPlayer();
+  
+  const handleAudioToggle = (): void => {
+    if (isAudioPlaying) {
+      audioPlayer.pause();
+      setIsAudioPlaying(false);
+    } else {
+      audioPlayer.play();
+      setIsAudioPlaying(true);
     }
   };
-
+  
   const handleBuyNowClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setShowNotifyModal(true);
   };
-
+  
+  // Setup audio event listeners
+  audioPlayer.addEventListener("ended", () => {
+    setIsAudioPlaying(false);
+  });
+  
   return (
     <section
       ref={sectionRef}
@@ -73,42 +71,43 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
               className="book-cover"
             />
             <div className="book-shadow"></div>
-            <div className="cover-overlay">
-              <i className="fas fa-book-open"></i>
-              <span>Click to Preview</span>
-            </div>
           </div>
         </div>
+        
         <div className="grid-item-6 book-details">
           <h1 className="book-title animate-on-scroll">A Novel Divorce</h1>
           <p className="book-tagline animate-on-scroll">
             A raw, unflinching memoir of love transforming, and self-discovery
           </p>
+          
           <div className="book-description">
             <p className="animate-on-scroll">
-              A Novel Divorce is the story of a life that doesn’t so much fall
+              <i>A Novel Divorce</i> is the story of a life that doesn't so much fall
               apart as it unravels—slowly, privately, and with devastating
               precision.
             </p>
             <p className="animate-on-scroll">
               It begins in smoke-thick bars and borrowed beds, where love is a
               rumor and youth feels endless. Eventually, the noise is quieted by
-              a wedding ring—or so it seems. But marriage doesn’t erase chaos;
+              a wedding ring—or so it seems. But marriage doesn't erase chaos;
               it only mutes it. Mornings blur into hangovers, affection into
               obligation. By the time the divorce papers arrive, the loss is
               clear, final, and strangely lucid.
             </p>
             <p className="animate-on-scroll">
-              But this isn’t a memoir about collapse. It’s about what happens
+              But this isn't a memoir about collapse. It's about what happens
               next.
             </p>
             <p className="animate-on-scroll">
-              What follows is a meticulous rebuild: therapy, sobriety, and an
-              unexpected friendship between two people who refuse to let their
-              shared past become a battlefield. With grace and candor, A Novel
-              Divorce charts how failure—when met without self-pity—can make
-              room for something more durable. Not redemption, exactly, but a
-              quieter kind of truth. A self reclaimed. A bond reshaped.
+              In <i>A Novel Divorce</i>, the end of a marriage becomes a reckoning—and
+              a beginning. When his relationship with Aaron reaches a point that
+              is beyond repair, the narrator spirals through self-doubt, explores plant
+              medicine, learns about spontaneous reinvention, develops outrageous friendships, builds courage in sobriety, and encounters one deeply unexpected love
+              story that upends everything he thought he knew. From sexual
+              fluidity and chosen family to ayahuasca trips and breakthroughs in therapy, this is a memoir about reassembling identity in the
+              ruins of romance. It's about who we become between the last
+              chapter of one love story and the first line of another—and the
+              mess, humor, and heartbreaking clarity that carries us across.
             </p>
             <p className="animate-on-scroll">
               Unsentimental, quietly hopeful, and razor-sharp in its honesty,
@@ -116,48 +115,34 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
               become the most radical kind of beginning.
             </p>
           </div>
-
-          <AudioPreview
-            bookType="novel-divorce"
-            isPlaying={isAudioPlaying}
-            onPlayStateChange={setIsAudioPlaying}
-          />
-
+          
           <div className="book-actions animate-on-scroll">
             <a href="#" className="btn btn-primary" onClick={handleBuyNowClick}>
-              Notify Me
+              Get Your Copy Now
             </a>
-            <button onClick={togglePreview} className="btn btn-secondary">
-              Read Preview
+            
+            <button onClick={handleAudioToggle} className="btn btn-primary listen-btn">
+              <FontAwesomeIcon icon={isAudioPlaying ? faPause : faPlay} />
+              <div className="btn-content">
+                <span className="btn-title">Listen</span>
+                <span className="btn-subtitle"><small>Audio Book Coming Soon</small></span>
+              </div>
             </button>
-
-            <a
-              href="#"
-              className="btn btn-tertiary"
-              onClick={handleAudioPreview}
-            >
-              <FontAwesomeIcon icon={faHeadphones} />
-              {isAudioPlaying ? "Stop" : "Listen to"} Preview
-            </a>
+            
+            <button onClick={togglePreview} className="btn btn-secondary sample-btn">
+              <FontAwesomeIcon icon={faBookOpen} />
+              <span>Sample</span>
+            </button>
           </div>
-          <div className="book-retailers animate-on-scroll">
-            <span>Available at:</span>
-            <a href="#" className="retailer-link" title="Amazon">
-              <FontAwesomeIcon icon={faAmazon} />
-            </a>
-            <a href="#" className="retailer-link" title="Apple Books">
-              <FontAwesomeIcon icon={faApple} />
-            </a>
-            <a href="#" className="retailer-link" title="Barnes & Noble">
-              <i className="fas fa-book"></i>
-            </a>
-            <a href="#" className="retailer-link" title="Kobo">
-              <i className="fas fa-tablet-alt"></i>
-            </a>
+          
+          <div className="book-availability animate-on-scroll">
+            <p style={{ marginTop: "1.5rem", fontSize: "0.95rem", color: "var(--text-secondary)", fontStyle: "italic" }}>
+              Also available in Softcover and Digital format from all your favorite retailers!
+            </p>
           </div>
         </div>
       </div>
-
+      
       {showPreview && (
         <PageTurner
           title="A Novel Divorce"
@@ -165,7 +150,7 @@ const BookShowcase: React.FC<BookShowcaseProps> = ({ showAudioPlayer }) => {
           closePreview={togglePreview}
         />
       )}
-
+      
       <ContactModal
         isOpen={showNotifyModal}
         onClose={() => setShowNotifyModal(false)}
