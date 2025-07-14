@@ -13,16 +13,19 @@ const Header: React.FC = () => {
       const scrollY = window.scrollY;
 
       if (scrollY === 0) {
+        nav.classList.remove("scrolled");
         nav.setAttribute(
           "style",
           "background: transparent; position: absolute; box-shadow: none;"
         );
       } else if (scrollY > 0 && scrollY <= 50) {
+        nav.classList.add("scrolled");
         nav.setAttribute(
           "style",
           "background: rgba(139, 0, 0, 0.6); position: fixed; box-shadow: none;"
         );
       } else {
+        nav.classList.add("scrolled");
         nav.setAttribute(
           "style",
           "background: rgba(139, 0, 0, 1); position: fixed; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);"
@@ -84,6 +87,11 @@ const Header: React.FC = () => {
           <li>
             <a href="#second-novel" className="nav-link" onClick={closeMenu}>
               Upcoming
+            </a>
+          </li>
+          <li>
+            <a href="#research" className="nav-link" onClick={closeMenu}>
+              Research
             </a>
           </li>
         </ul>

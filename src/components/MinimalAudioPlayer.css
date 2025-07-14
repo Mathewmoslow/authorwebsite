@@ -1,0 +1,237 @@
+/* Minimal Audio Player Styles */
+
+/* Floating Button */
+.minimal-player-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.minimal-player-button:hover {
+  transform: scale(1.05);
+  background: var(--secondary-burgundy);
+}
+
+/* Modal Overlay */
+.minimal-player-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Player Container */
+.minimal-player-container {
+  background: var(--primary-dark);
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+  position: relative;
+}
+
+/* Close Button */
+.minimal-player-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimal-player-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Content */
+.minimal-player-content {
+  text-align: center;
+}
+
+.minimal-player-content h4 {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* Track Info */
+.minimal-track-info {
+  margin-bottom: 1.5rem;
+}
+
+.minimal-track-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Controls */
+.minimal-player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.minimal-control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimal-play-btn {
+  width: 50px;
+  height: 50px;
+  background: var(--accent-red);
+}
+
+.minimal-control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.minimal-play-btn:hover {
+  background: var(--secondary-burgundy);
+}
+
+/* Progress Section */
+.minimal-progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.minimal-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.minimal-progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-red);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.minimal-time-info {
+  color: #999;
+  font-size: 0.8rem;
+}
+
+/* Track List */
+.minimal-track-list {
+  text-align: left;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.minimal-track-item {
+  padding: 0.75rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+}
+
+.minimal-track-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.minimal-track-item.active {
+  color: var(--accent-red);
+  background: rgba(139, 0, 0, 0.1);
+}
+
+.minimal-track-num {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.minimal-track-name {
+  flex: 1;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Desktop - Use Sidebar Instead */
+@media (min-width: 769px) {
+  .minimal-player-button,
+  .minimal-player-modal {
+    display: none;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .minimal-player-container {
+    max-height: 60vh;
+  }
+
+  .minimal-track-list {
+    max-height: 150px;
+  }
+}

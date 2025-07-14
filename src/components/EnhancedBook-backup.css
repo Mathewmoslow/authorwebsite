@@ -1,0 +1,368 @@
+/* Enhanced 3D Book Display Styles /
+.book-showcase,
+.second-novel {
+  position: relative;
+  overflow: hidden;
+}
+.book-showcase::before,
+.second-novel::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 107, 107, 0.05) 0%,
+    transparent 70%
+  );
+  animation: pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+/ 3D Book Display /
+.book-display {
+  position: relative;
+  perspective: 1200px;
+  max-width: 400px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+.book-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transform: rotateY(8deg) rotateX(2deg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 10px 20px -5px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.clickable-cover {
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.clickable-cover:hover .book-cover {
+  transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.6),
+    0 15px 35px -10px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+/ Book Shadow Effect /
+.book-shadow {
+  position: absolute;
+  bottom: -30px;
+  left: 10%;
+  width: 80%;
+  height: 30px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.4) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  transform: rotateX(90deg) translateZ(-50px);
+  transition: all 0.6s ease;
+}
+.clickable-cover:hover .book-shadow {
+  transform: rotateX(90deg) translateZ(-60px) scale(1.1);
+  opacity: 0.8;
+}
+/ Cover Overlay with Glass Effect /
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+}
+.cover-overlay i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+.cover-overlay span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transform: translateY(20px);
+  transition: transform 0.4s ease 0.1s;
+}
+.clickable-cover:hover .cover-overlay {
+  opacity: 1;
+}
+.clickable-cover:hover .cover-overlay i,
+.clickable-cover:hover .cover-overlay span {
+  transform: translateY(0);
+}
+/ Book Details Animation /
+.book-details {
+  animation: fadeInUp 0.8s ease;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.book-title {
+  position: relative;
+  display: inline-block;
+}
+.book-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-red), transparent);
+  animation: expandWidth 1s ease 0.5s forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+@keyframes expandWidth {
+  to {
+    transform: scaleX(1);
+  }
+}
+/ Floating Animation for Elements /
+.book-actions {
+  animation: floatIn 1s ease 0.6s backwards;
+}
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/ Responsive 3D adjustments */
+@media (max-width: 768px) {
+  .book-cover {
+    transform: rotateY(5deg) rotateX(1deg);
+  }
+  .book-display {
+    perspective: 800px;
+  }
+}
+
+/* Add this to your enhanced-book.css file */
+
+/* Book Actions Container - Enhanced with existing animation */
+.book-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  animation: floatIn 1s ease 0.6s backwards; /* Keep your existing animation */
+}
+
+/* Base button styles with enhanced effects */
+.book-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+/* Add subtle 3D effect to buttons */
+.book-actions .btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.book-actions .btn:hover::before {
+  left: 100%;
+}
+
+/* Listen button with subtitle */
+.listen-btn {
+  position: relative;
+  padding: 0.6rem 1.5rem !important;
+}
+
+.listen-btn .btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.listen-btn .btn-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.listen-btn .btn-subtitle {
+  font-size: 0.65rem;  /* Made even smaller */
+  opacity: 0.7;        /* Slightly more transparent */
+  font-weight: 400;
+  margin-top: 0.1rem;
+  letter-spacing: 0.3px; /* Slight letter spacing for readability */
+}
+
+/* Icon spacing and animation */
+.book-actions .btn svg {
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.book-actions .btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Sample button */
+.sample-btn {
+  min-width: 120px;
+}
+
+/* Primary button with gradient (matching your accent-red) */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-red), #e74c3c);
+  color: white;
+  box-shadow: 0 4px 15px -3px rgba(231, 76, 60, 0.4);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #e74c3c, var(--accent-red));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(231, 76, 60, 0.5);
+}
+
+/* Secondary button with glass effect */
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Hover effects with 3D perspective */
+.book-actions .btn:hover {
+  transform: translateY(-2px) rotateX(-5deg);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state */
+.book-actions .btn:active {
+  transform: translateY(0) rotateX(0);
+  transition: transform 0.1s ease;
+}
+
+/* Stagger animation for buttons */
+.book-actions .btn:nth-child(1) {
+  animation: floatIn 1s ease 0.7s backwards;
+}
+
+.book-actions .btn:nth-child(2) {
+  animation: floatIn 1s ease 0.8s backwards;
+}
+
+.book-actions .btn:nth-child(3) {
+  animation: floatIn 1s ease 0.9s backwards;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .book-actions {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  .book-actions .btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .listen-btn .btn-subtitle {
+    font-size: 0.65rem;
+  }
+  
+  /* Remove 3D effects on mobile for performance */
+  .book-actions .btn:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 480px) {
+  .book-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .book-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  /* Adjust stagger timing for vertical layout */
+  .book-actions .btn {
+    animation-delay: 0.6s;
+  }
+}

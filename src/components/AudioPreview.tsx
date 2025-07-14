@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 
 // Import audio snippets
-import novelDivorceSnippet from "../assets/audio/noveldivorcesnippet.mp3";
-import blakeHallSnippet from "../assets/audio/blakehall.mp3";
+const novelDivorceSnippet = "/audio/noveldivorcesnippet.mp3";
+const blakeHallSnippet = "/audio/blakehall.mp3";
 
 interface AudioPreviewProps {
   bookType: "novel-divorce" | "year-and-day";

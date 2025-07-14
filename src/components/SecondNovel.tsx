@@ -1,18 +1,19 @@
 import { useState } from "react";
 import PageTurner from "./PageTurner";
-import AudioPreview from "./AudioPreview";
 import ContactModal from "./ContactModal";
 import novelCover from "../assets/images/ayad.png";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faBookOpen } from "@fortawesome/free-solid-svg-icons";
+import blakeHallSnippet from "../assets/audio/blakehall.mp3";
 
 const SecondNovel: React.FC = () => {
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [showContactModal, setShowContactModal] = useState<boolean>(false);
+  const [audioPlayer] = useState(() => new Audio(blakeHallSnippet));
 
   const sectionRef = useScrollAnimation<HTMLElement>({
     perspective: 1200,
@@ -27,14 +28,25 @@ const SecondNovel: React.FC = () => {
     setShowPreview(true);
   };
 
-  const handleAudioPreview = (): void => {
-    setIsAudioPlaying(!isAudioPlaying);
+  const handleAudioToggle = (): void => {
+    if (isAudioPlaying) {
+      audioPlayer.pause();
+      setIsAudioPlaying(false);
+    } else {
+      audioPlayer.play();
+      setIsAudioPlaying(true);
+    }
   };
 
-  const handleNotifyClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+  const handleReserveClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setShowContactModal(true);
   };
+
+  // Setup audio event listeners
+  audioPlayer.addEventListener("ended", () => {
+    setIsAudioPlaying(false);
+  });
 
   return (
     <section
@@ -55,10 +67,6 @@ const SecondNovel: React.FC = () => {
               className="book-cover"
             />
             <div className="book-shadow"></div>
-            <div className="cover-overlay">
-              <i className="fas fa-book-open"></i>
-              <span>Click to Preview</span>
-            </div>
           </div>
         </div>
         <div className="grid-item-8 book-details">
@@ -84,22 +92,28 @@ const SecondNovel: React.FC = () => {
               exact revenge—before the clock runs out.
             </p>
           </div>
-          <AudioPreview
-            bookType="year-and-day"
-            isPlaying={isAudioPlaying}
-            onPlayStateChange={setIsAudioPlaying}
-          />
+          
           <div className="book-actions animate-on-scroll">
-            <a href="#" className="btn btn-primary" onClick={handleNotifyClick}>
-              Sign up to get notified
+            <a href="#" className="btn btn-primary" onClick={handleReserveClick}>
+              Reserve Your Copy
             </a>
-            <button onClick={togglePreview} className="btn btn-secondary">
-              Sneak Peek
+            <button onClick={handleAudioToggle} className="btn btn-secondary listen-btn">
+              <FontAwesomeIcon icon={isAudioPlaying ? faPause : faPlay} />
+              <div className="btn-content">
+                <span className="btn-title">Listen</span>
+                <span className="btn-subtitle"><small>Audio Book Coming Soon</small></span>
+              </div>
             </button>
-            <button onClick={handleAudioPreview} className="btn btn-tertiary">
-              <FontAwesomeIcon icon={faHeadphones} />
-              {isAudioPlaying ? "Stop" : "Listen to"} Preview
+            <button onClick={togglePreview} className="btn btn-tertiary">
+              <FontAwesomeIcon icon={faBookOpen} />
+              <span>Sample</span>
             </button>
+          </div>
+          
+          <div className="book-availability animate-on-scroll">
+            <p style={{ marginTop: "1.5rem", fontSize: "0.95rem", color: "var(--text-secondary)", fontStyle: "italic" }}>
+              Also available in Softcover and Digital format from all your favorite retailers!
+            </p>
           </div>
         </div>
       </div>

@@ -61,15 +61,18 @@ const About: React.FC = () => {
             actually want to live in.
           </p>
         </div>
-
-        <div className="grid-item-4 about-image animate-on-scroll">
-          <div className="headshot-container">
-            <img
-              src={authorImage}
-              alt="Mathew Moslow Headshot"
-              className="headshot"
-            />
-          </div>
+        <div className="grid-item-4 about-image animate-on-scroll" style={{ padding: 0, overflow: "hidden" }}>
+          <img
+            src={authorImage}
+            alt="Mathew Moslow Headshot"
+            className="headshot"
+            style={{ 
+              width: "100%", 
+              height: "100%", 
+              objectFit: "cover",
+              display: "block"
+            }}
+          />
         </div>
       </div>
     </section>

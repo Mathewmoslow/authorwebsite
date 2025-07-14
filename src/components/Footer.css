@@ -39,8 +39,8 @@ footer {
   }
   
   .footer-links {
-    flex: 1;
-    min-width: 200px;
+    flex: 2; /* Increased to accommodate horizontal layout */
+    min-width: 400px; /* Increased minimum width */
   }
   
   .footer-links ul {
@@ -48,8 +48,10 @@ footer {
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row; /* Changed from column to row */
+    gap: 30px; /* Increased gap for horizontal spacing */
+    align-items: center;
+    justify-content: center;
   }
   
   .footer-links li {
@@ -61,6 +63,8 @@ footer {
     text-decoration: none;
     transition: color 0.3s ease;
     font-size: 16px;
+    font-weight: 500; /* Added font weight for better visibility */
+    white-space: nowrap; /* Prevent text wrapping */
   }
   
   .footer-links a:hover {
@@ -118,7 +122,23 @@ footer {
       justify-content: center;
     }
     
+    .footer-links {
+      min-width: 100%;
+    }
+    
     .footer-links ul {
-      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      gap: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-links ul {
+      gap: 15px;
+    }
+    
+    .footer-links a {
+      font-size: 14px;
     }
   }
