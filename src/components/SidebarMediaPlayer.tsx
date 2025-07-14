@@ -13,13 +13,13 @@ import {
 const feelsLikeGoodbyeAudio = "/audio/feelslikegoodbye.mp3";
 const lovelyMessAudio = "/audio/lovelymess.mp3";
 const whileImBreathingAudio = "/audio/breathing.mp3";
-const podcastAudio = "/audio/podcast.wav"; // or whatever your podcast filename is
+
 
 // Cover images from public directory
 const flgbCover = "/images/flgb2.jpeg";
 const lmCover = "/images/LMCOVER2.png";
 const breathingCover = "/images/breathing2.jpeg";
-const deepdiveCover = "/images/deepdive.png";
+
 
 interface Track {
   title: string;
