@@ -1,0 +1,330 @@
+/* Modern Split-Screen About Section with Parallax */
+.about-section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+/* Split Container */
+.split-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  position: relative;
+}
+
+/* Content Side (Left) - with parallax scrolling */
+.content-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  overflow: hidden; /* Hide overflow - no scrollbar */
+}
+
+.content-wrapper {
+  max-width: 600px;
+  padding: 4rem 3rem;
+  width: 100%;
+  position: relative;
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* Force right alignment for all text content */
+.content-wrapper * {
+  text-align: right !important;
+}
+
+.content-wrapper h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #333;
+  position: relative;
+  padding-bottom: 1rem;
+  text-align: right !important;
+  opacity: 0;
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.content-wrapper h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 3px;
+  background: #8B0000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-side:hover .content-wrapper h2::after {
+  width: 100px;
+}
+
+.content-wrapper p {
+  margin-bottom: 1.5rem;
+  color: #666;
+  line-height: 1.8;
+  text-align: right !important;
+  font-size: 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Stagger paragraph animations */
+.content-wrapper p:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.content-wrapper p:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.content-wrapper p:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.content-wrapper p:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.content-wrapper p:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+.content-wrapper p:nth-child(7) {
+  animation-delay: 0.6s;
+}
+
+/* Image Side (Right) - Fixed position */
+.image-side {
+  flex: 1;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Elegant scale effect on hover */
+.about-section .image-wrapper:hover .image-overlay {
+  opacity: 1;
+}
+
+.about-section .image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* Decorative Elements */
+.accent-line {
+  position: absolute;
+  width: 2px;
+  height: 100px;
+  background: #8B0000;
+  opacity: 0.3;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  animation: expandLine 1s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* Subtle pattern on content background */
+.content-side::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #8B0000;
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 2s forwards, bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Component-specific Animations */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+
+@keyframes expandLine {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 100px;
+    opacity: 0.3;
+  }
+}
+
+/* Force override any conflicting styles */
+.about-section .content-wrapper,
+.about-section .content-wrapper * {
+  text-align: right !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    padding: 3rem 2rem;
+  }
+  
+  .content-wrapper h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    min-height: auto;
+  }
+
+  .split-container {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .content-side,
+  .image-side {
+    width: 100%;
+    position: relative;
+  }
+  
+  .content-side {
+    min-height: auto;
+  }
+
+  .image-side {
+    height: 400px;
+    position: relative;
+    top: auto;
+  }
+
+  .content-wrapper {
+    padding: 3rem 2rem;
+    transform: none !important;
+  }
+  
+  /* Left align for mobile */
+  .content-wrapper *,
+  .content-wrapper h2,
+  .content-wrapper p {
+    text-align: left !important;
+  }
+
+  .content-wrapper h2 {
+    font-size: 2rem;
+  }
+
+  .content-wrapper h2::after {
+    left: 0;
+    right: auto;
+  }
+
+  .accent-line,
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .content-wrapper h2 {
+    font-size: 1.75rem;
+  }
+
+  .content-wrapper p {
+    font-size: 0.95rem;
+  }
+
+  .image-side {
+    height: 300px;
+  }
+}
