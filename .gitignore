@@ -28,3 +28,4 @@ src/assets/audio/old/
 *.wav
 *.aif
 .pnpm-store/
+.pnpm-store/
