@@ -5,8 +5,6 @@ import novelCover from "../assets/images/ayad.png";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 const blakeHallSnippet = "/audio/blakehall.mp3";
 
 const SecondNovel: React.FC = () => {

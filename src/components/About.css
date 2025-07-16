@@ -1,6 +1,5 @@
 /* Modern Split-Screen About Section with Parallax */
 .about-section {
-  min-height: 100vh;
   position: relative;
   overflow: hidden;
   background: #f8f8f8;
@@ -9,7 +8,6 @@
 /* Split Container */
 .split-container {
   width: 100%;
-  min-height: 100vh;
   display: flex;
   position: relative;
 }
@@ -23,8 +21,7 @@
   background: white;
   position: relative;
   z-index: 2;
-  min-height: 100vh;
-  overflow: hidden; /* Hide overflow - no scrollbar */
+  overflow: hidden;
 }
 
 .content-wrapper {

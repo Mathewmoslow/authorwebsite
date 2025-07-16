@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import "../styles/enhanced-book.css";
 import "../styles/animations.css";
 import PageTurner from "./PageTurner";
