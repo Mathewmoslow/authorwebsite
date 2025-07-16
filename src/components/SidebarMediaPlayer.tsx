@@ -14,6 +14,7 @@ const feelsLikeGoodbyeAudio = "/audio/feelslikegoodbye.mp3";
 const lovelyMessAudio = "/audio/lovelymess.mp3";
 const whileImBreathingAudio = "/audio/breathing.mp3";
 const fineWineAudio = "/audio/finewinesandfinelines.mp3";
+const feelsLikeGoodbyeOutroAudio = "/audio/feelslikegoodbyeoutro.mp3";
 const podcastAudio = "/audio/podcast.mp3";
 
 // Cover images from public directory
@@ -51,6 +52,7 @@ const SidebarMediaPlayer: React.FC<SidebarMediaPlayerProps> = ({
     { title: "Lovely Mess", file: lovelyMessAudio, cover: lmCover },
     { title: "While I'm Breathing", file: whileImBreathingAudio, cover: breathingCover },
     { title: "Fine Wine and Fine Lines", file: fineWineAudio, cover: wineLinesCover },
+    { title: "Feels Like Goodbye (Outro)", file: feelsLikeGoodbyeOutroAudio, cover: flgbCover },
     { title: "Deep Dive Podcast", file: podcastAudio, cover: deepdiveCover },
   ];
   

@@ -15,6 +15,7 @@ const feelsLikeGoodbyeAudio = "/audio/feelslikegoodbye.mp3";
 const lovelyMessAudio = "/audio/lovelymess.mp3";
 const whileImBreathingAudio = "/audio/breathing.mp3";
 const fineWineAudio = "/audio/finewinesandfinelines.mp3";
+const feelsLikeGoodbyeOutroAudio = "/audio/feelslikegoodbyeoutro.mp3";
 const podcastAudio = "/audio/podcast.mp3";
 
 interface Track {
@@ -44,6 +45,7 @@ const MinimalAudioPlayer: React.FC<MinimalAudioPlayerProps> = ({
     { title: "Lovely Mess", file: lovelyMessAudio },
     { title: "While I'm Breathing", file: whileImBreathingAudio },
     { title: "Fine Wine and Fine Lines", file: fineWineAudio },
+    { title: "Feels Like Goodbye (Outro)", file: feelsLikeGoodbyeOutroAudio },
     { title: "Deep Dive Podcast", file: podcastAudio },
   ];
 
