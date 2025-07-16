@@ -5,7 +5,6 @@ import {
   faPause,
   faForward,
   faBackward,
-  faVolumeUp,
   faList,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
