@@ -7,7 +7,7 @@ import PageTurner from "./PageTurner";
 import ContactModal from "./ContactModal";
 import bookCover from "../assets/images/IMG_1357.jpeg";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import novelDivorceSnippet from "../assets/audio/noveldivorcesnippet.mp3";
+const novelDivorceSnippet = "/audio/noveldivorcesnippet.mp3";
 
 interface BookShowcaseProps {
   showAudioPlayer?: () => void;
