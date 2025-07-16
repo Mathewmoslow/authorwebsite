@@ -20,7 +20,7 @@ const About: React.FC = () => {
       if (sectionTop <= windowHeight && sectionTop + sectionHeight >= 0) {
         // Calculate scroll progress through the section (0 to 1)
         const scrollProgress = Math.max(0, Math.min(1, -sectionTop / (sectionHeight - windowHeight)));
-        
+
         // Apply parallax transform - adjust the multiplier to control speed
         const translateY = scrollProgress * 300; // Adjust this value to control parallax speed
         contentRef.current.style.transform = `translateY(-${translateY}px)`;
@@ -61,9 +61,6 @@ const About: React.FC = () => {
             <p>
               He is, in the quietest way possible, building a world he would actually want to live in.
             </p>
-          </div>
-          <div className="scroll-indicator">
-            <span>↓ Scroll to read more</span>
           </div>
         </div>
         <div className="image-side">

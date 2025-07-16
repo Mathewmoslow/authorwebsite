@@ -8,6 +8,7 @@
 /* Split Container */
 .split-container {
   width: 100%;
+  min-height: 100vh; /* Add this to ensure proper layout */
   display: flex;
   position: relative;
 }
@@ -22,6 +23,7 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
+  padding: 4rem 0; /* Add vertical padding */
 }
 
 .content-wrapper {
@@ -174,8 +176,8 @@
   pointer-events: none;
 }
 
-/* Scroll indicator */
-.scroll-indicator {
+/* Remove scroll indicator if div was removed */
+/* .scroll-indicator {
   position: absolute;
   bottom: 20px;
   right: 20px;
@@ -183,7 +185,7 @@
   font-size: 0.9rem;
   opacity: 0;
   animation: fadeIn 1s ease-out 2s forwards, bounce 2s ease-in-out infinite;
-}
+} */
 
 @keyframes bounce {
   0%, 100% {
@@ -272,6 +274,7 @@
   
   .content-side {
     min-height: auto;
+    padding: 2rem 0; /* Adjust padding for mobile */
   }
 
   .image-side {
