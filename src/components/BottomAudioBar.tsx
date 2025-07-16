@@ -15,7 +15,7 @@ const tracks = [
   { title: "Feels Like Goodbye", file: "/audio/feelslikegoodbye.mp3" },
   { title: "Lovely Mess", file: "/audio/lovelymess.mp3" },
   { title: "While I'm Breathing", file: "/audio/breathing.mp3" },
-  { title: "Fine Wine and Fine Lines", file: "/audio/finewinesandfinelines.mp3" },
+  { title: "Fine Wine and Fine Lines", file: "/audio/finewineandfinelines.mp3" },
   { title: "Feels Like Goodbye (Outro)", file: "/audio/feelslikegoodbyeoutro.mp3" },
   { title: "Deep Dive Podcast", file: "/audio/podcast.mp3" },
 ];
@@ -30,6 +30,7 @@ const BottomAudioBar: React.FC<BottomAudioBarProps> = ({ isVisible }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const formatTime = (seconds: number): string => {
@@ -73,6 +74,15 @@ const BottomAudioBar: React.FC<BottomAudioBarProps> = ({ isVisible }) => {
       audioRef.current.currentTime = seekTime;
     }
   };
+
+  // Initialize first track on mount
+  useEffect(() => {
+    if (!isInitialized && audioRef.current) {
+      audioRef.current.src = tracks[0].file;
+      audioRef.current.load();
+      setIsInitialized(true);
+    }
+  }, [isInitialized]);
 
   useEffect(() => {
     const audio = audioRef.current;

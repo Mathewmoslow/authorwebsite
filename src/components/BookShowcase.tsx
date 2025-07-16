@@ -18,20 +18,20 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [showNotifyModal, setShowNotifyModal] = useState<boolean>(false);
   const [audioPlayer] = useState(() => new Audio(novelDivorceSnippet));
-  
+
   const sectionRef = useScrollAnimation<HTMLElement>({
     perspective: 1200,
     rotation: 10,
   });
-  
+
   const togglePreview = (): void => {
     setShowPreview(!showPreview);
   };
-  
+
   const handleCoverClick = (): void => {
     setShowPreview(true);
   };
-  
+
   const handleAudioToggle = (): void => {
     if (isAudioPlaying) {
       audioPlayer.pause();
@@ -41,17 +41,17 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
       setIsAudioPlaying(true);
     }
   };
-  
+
   const handleBuyNowClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setShowNotifyModal(true);
   };
-  
+
   // Setup audio event listeners
   audioPlayer.addEventListener("ended", () => {
     setIsAudioPlaying(false);
   });
-  
+
   return (
     <section
       ref={sectionRef}
@@ -73,13 +73,13 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
             <div className="book-shadow"></div>
           </div>
         </div>
-        
+
         <div className="grid-item-6 book-details">
           <h1 className="book-title animate-on-scroll">A Novel Divorce</h1>
           <p className="book-tagline animate-on-scroll">
             A raw, unflinching memoir of love transforming, and self-discovery
           </p>
-          
+
           <div className="book-description">
             <p className="animate-on-scroll">
               <i>A Novel Divorce</i> is the story of a life that doesn't so much fall
@@ -115,26 +115,22 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
               become the most radical kind of beginning.
             </p>
           </div>
-          
+
           <div className="book-actions animate-on-scroll">
             <a href="#" className="btn btn-primary" onClick={handleBuyNowClick}>
               Get Your Copy Now
             </a>
-            
-            <button onClick={handleAudioToggle} className="btn btn-primary listen-btn">
-              <FontAwesomeIcon icon={isAudioPlaying ? faPause : faPlay} />
+            <button onClick={handleAudioToggle} className="btn btn-secondary listen-btn">
               <div className="btn-content">
                 <span className="btn-title">Listen</span>
                 <span className="btn-subtitle"><small>Audio Book Coming Soon</small></span>
               </div>
             </button>
-            
-            <button onClick={togglePreview} className="btn btn-secondary sample-btn">
-              <FontAwesomeIcon icon={faBookOpen} />
+            <button onClick={togglePreview} className="btn btn-secondary">
               <span>Sample</span>
             </button>
           </div>
-          
+
           <div className="book-availability animate-on-scroll">
             <p style={{ marginTop: "1.5rem", fontSize: "0.95rem", color: "var(--text-secondary)", fontStyle: "italic" }}>
               Also available in Softcover and Digital format from all your favorite retailers!
@@ -142,7 +138,7 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
           </div>
         </div>
       </div>
-      
+
       {showPreview && (
         <PageTurner
           title="A Novel Divorce"
@@ -150,7 +146,7 @@ const BookShowcase: React.FC<BookShowcaseProps> = () => {
           closePreview={togglePreview}
         />
       )}
-      
+
       <ContactModal
         isOpen={showNotifyModal}
         onClose={() => setShowNotifyModal(false)}

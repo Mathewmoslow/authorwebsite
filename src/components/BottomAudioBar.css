@@ -219,7 +219,7 @@
   }
 
   .audio-bar-content {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 12px;
   }
 
@@ -232,7 +232,7 @@
   }
 
   .extra-controls {
-    display: none;
+    order: 1;
   }
 
   .progress-container {
