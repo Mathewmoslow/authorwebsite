@@ -160,7 +160,7 @@ p {
 
 /* Section padding adjustments */
 .section-padding {
-  padding: clamp(3rem, 6vw, 6rem) 0; /* Dynamic vertical padding */
+  padding: clamp(2rem, 4vw, 4rem) 0; /* Dynamic vertical padding */
 }
 
 /* Dynamic grid columns */
@@ -791,6 +791,7 @@ p {
   margin-bottom: 1rem;
   font-family: var(--font-heading);
   font-weight: 900;
+  white-space: nowrap; /* ADD THIS - Prevents line breaks on large screens */
 }
 
 .hero-subtitle {
@@ -1090,7 +1091,7 @@ footer {
   
   .book-showcase .grid-container,
   .second-novel .grid-container {
-    gap: 5rem;
+    gap: 2rem;
   }
 }
 
@@ -1181,6 +1182,11 @@ footer {
     font-size: 1.2rem;
   }
   
+    #hero-title {
+    white-space: normal; /* Allow line breaks on mobile */
+    font-size: clamp(2.5rem, 8vw, 5rem); /* Slightly smaller for mobile */
+  }
+
   /* Grid and Layout */
   .grid-container {
     max-width: 100%;
@@ -1330,5 +1336,10 @@ footer {
     width: 35px;
     height: 35px;
     font-size: 0.9rem;
+  }
+
+    #hero-title {
+    white-space: normal;
+    font-size: clamp(2rem, 7vw, 4rem); /* Even smaller for very small screens */
   }
 }

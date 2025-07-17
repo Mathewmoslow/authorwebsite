@@ -8,12 +8,12 @@
 /* Split Container */
 .split-container {
   width: 100%;
-  min-height: 100vh; /* Add this to ensure proper layout */
   display: flex;
   position: relative;
+  align-items: stretch; /* ADD THIS - makes children equal height */
 }
 
-/* Content Side (Left) - with parallax scrolling */
+/* Content Side (Left) */
 .content-side {
   flex: 1;
   display: flex;
@@ -23,7 +23,8 @@
   position: relative;
   z-index: 2;
   overflow: hidden;
-  padding: 4rem 0; /* Add vertical padding */
+  padding: 4rem 0;
+  height: 80vh; /* ADD THIS - match the image side height */
 }
 
 .content-wrapper {
@@ -108,7 +109,7 @@
   flex: 1;
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 80vh;
   overflow: hidden;
   background: #000;
 }
@@ -154,7 +155,6 @@
 .accent-line {
   position: absolute;
   width: 2px;
-  height: 100px;
   background: #8B0000;
   opacity: 0.3;
   top: 50%;
@@ -165,13 +165,14 @@
 }
 
 /* Subtle pattern on content background */
+/* Update the ::before to match */
 .content-side::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; /* CHANGE from min-height: 80vh to height: 100% */
   background-image: radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -262,7 +263,7 @@
   }
 
   .split-container {
-    flex-direction: column;
+    flex-direction: column-reverse;
     min-height: auto;
   }
 

@@ -6,36 +6,6 @@ const About: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!contentRef.current || !sectionRef.current) return;
-
-      // Get the section's position relative to viewport
-      const rect = sectionRef.current.getBoundingClientRect();
-      const sectionTop = rect.top;
-      const sectionHeight = rect.height;
-      const windowHeight = window.innerHeight;
-
-      // Calculate if section is in view
-      if (sectionTop <= windowHeight && sectionTop + sectionHeight >= 0) {
-        // Calculate scroll progress through the section (0 to 1)
-        const scrollProgress = Math.max(0, Math.min(1, -sectionTop / (sectionHeight - windowHeight)));
-
-        // Apply parallax transform - adjust the multiplier to control speed
-        const translateY = scrollProgress * 300; // Adjust this value to control parallax speed
-        contentRef.current.style.transform = `translateY(-${translateY}px)`;
-      }
-    };
-
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once to set initial position
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <section id="about" className="about-section" ref={sectionRef}>
       <div className="split-container">
