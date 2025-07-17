@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="copyright">
-          <p>&copy; {currentYear} Mathew Moslow. All rights reserved.</p>
+          <p>&copy; {currentYear} Ickle and Oaf Publishing. All rights reserved.</p>
         </div>
       </div>
     </footer>
