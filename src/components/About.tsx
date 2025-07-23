@@ -1,41 +1,31 @@
-import React, { useRef } from "react";
+import React from "react";
 import headshotImage from "../assets/images/headshot.jpeg";
 import "./About.css";
 
 const About: React.FC = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section id="about" className="about-section" ref={sectionRef}>
-      <div className="split-container">
-        <div className="content-side">
-          <div className="accent-line"></div>
-          <div className="content-wrapper" ref={contentRef}>
+    <section id="about" className="about-section">
+      <div className="about-container">
+        <div className="about-grid">
+          <div className="about-content">
             <h2>About Mathew Moslow</h2>
             <p>
-              Inside the layered world of a nursing student who builds like a designer, thinks like a researcher, and rests like someone who's earned it.
+              Nursing student. Systems critic. Reluctant vampire. Somewhere between crying at commercials and building apps at 3am, you'll find an author who can't help but see the cracks in everything - and can't stop trying to fix them.
             </p>
             <p>
-              By title, he's a nursing student — midway through an intense pre-licensure program, fluent in the language of vitals and patient care. But that's only the outer ring. Inside, there's a deeper structure: web interfaces that mimic human thought, audio-reactive learning tools, clinical questions rewritten with precision. His work doesn't just serve a curriculum — it interrogates the form itself.
+              By day (when he manages to see it), he's halfway through a pre-licensure nursing program, learning the careful choreography of codes and the weight of a frightened wife's hand in his. By night, he's building tools that solve the problems nobody else seems to notice: syllabus chaos, systemic educational failures, the gap between what nursing school teaches and what the floor demands.
             </p>
             <p>
-              Research, for him, is not accumulation, it's architecture. Whether analyzing medical journals with methodical precision or mapping connections between seemingly unrelated disciplines, the impulse is the same: uncover patterns. Question assumptions. Build knowledge that reveals rather than obscures.
+              He once smuggled a wounded bird home in his pocket, forgot about it for days, and learned something about good intentions. Now he approaches psychiatric nursing with the same instinct - equal parts bleeding heart and pragmatic selfishness, knowing that caring for others requires a certain ruthlessness about self-preservation.
             </p>
             <p>
-              His world is organized into concentric zones of comfort and control. The outer layer: cozy, communal, filled with blankets, dogs, and warmth. The inner sanctum: precise, quiet, hermetically his. He works with the intensity of someone who knows what it means to overextend — and who's learned to value the off-switch as much as the spark.
+              His workspace isn't an altar and his sleep schedule isn't a virtue. He crashes when he must, builds when he can't stop himself, and measures success not in perfect routines but in problems solved and systems exposed. The bigger the issue - postpartum depression, educational paradigms, the way we fail those who need us most - the more likely he is to mutter "I'm going to fix it though, don't worry."
             </p>
             <p>
-              That voice carries through his debut memoir, A Novel Divorce, now heading to press. It traces the end of his marriage and the long, layered life that led there. His second work, a novel with the working title Beyond the Reach of Justice, tells the story of a nurse disenchanted by his father — and the quiet, calculated plot that unfolds in Jamaica, where a colonial-era law offers a lethal legal loophole.
-            </p>
-            <p>
-              He is, in the quietest way possible, building a world he would actually want to live in.
+              What emerges isn't the story of someone who has it figured out, but someone who keeps picking himself up, driven by curiosity and the stubborn belief that things could work better than they do.
             </p>
           </div>
-        </div>
-        <div className="image-side">
-          <div className="image-wrapper">
-            <div className="image-overlay"></div>
+          <div className="about-image">
             <img src={headshotImage} alt="Mathew Moslow" />
           </div>
         </div>

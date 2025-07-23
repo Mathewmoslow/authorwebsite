@@ -3,28 +3,44 @@
   position: relative;
   overflow: hidden;
   background: #f8f8f8;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
 }
 
-/* Split Container */
+/* Split Container - Full height without padding */
 .split-container {
   width: 100%;
+  min-height: 100vh;
   display: flex;
   position: relative;
-  align-items: stretch; /* ADD THIS - makes children equal height */
+  align-items: stretch;
 }
 
-/* Content Side (Left) */
+/* Content Side (Left) - Vertically centered with controlled parallax */
 .content-side {
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: center; /* Back to center for vertical centering */
   justify-content: center;
   background: white;
   position: relative;
   z-index: 2;
-  overflow: hidden;
+  overflow: hidden; /* Back to hidden but with proper bounds */
   padding: 4rem 0;
-  height: 80vh; /* ADD THIS - match the image side height */
+  min-height: 100vh;
+}
+
+/* Parallax container to handle the scroll effect */
+.parallax-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  position: relative;
+  /* Extra space for parallax movement */
+  padding: 150px 0; /* Half of max parallax movement on each side */
 }
 
 .content-wrapper {
@@ -104,14 +120,16 @@
   animation-delay: 0.6s;
 }
 
-/* Image Side (Right) - Fixed position */
+/* Image Side (Right) - Full height to match container */
 .image-side {
   flex: 1;
   position: sticky;
   top: 0;
-  height: 80vh;
+  height: 100vh;
   overflow: hidden;
   background: #000;
+  display: flex;
+  align-items: stretch;
 }
 
 .image-wrapper {
@@ -119,6 +137,9 @@
   height: 100%;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .image-wrapper img {
@@ -155,6 +176,7 @@
 .accent-line {
   position: absolute;
   width: 2px;
+  height: 100px;
   background: #8B0000;
   opacity: 0.3;
   top: 50%;
@@ -165,36 +187,15 @@
 }
 
 /* Subtle pattern on content background */
-/* Update the ::before to match */
 .content-side::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* CHANGE from min-height: 80vh to height: 100% */
+  height: 100%;
   background-image: radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
   pointer-events: none;
-}
-
-/* Remove scroll indicator if div was removed */
-/* .scroll-indicator {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  color: #8B0000;
-  font-size: 0.9rem;
-  opacity: 0;
-  animation: fadeIn 1s ease-out 2s forwards, bounce 2s ease-in-out infinite;
-} */
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 /* Component-specific Animations */
@@ -240,6 +241,15 @@
   }
 }
 
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 /* Force override any conflicting styles */
 .about-section .content-wrapper,
 .about-section .content-wrapper * {
@@ -260,10 +270,11 @@
 @media (max-width: 768px) {
   .about-section {
     min-height: auto;
+    display: block;
   }
 
   .split-container {
-    flex-direction: column-reverse;
+    flex-direction: column;
     min-height: auto;
   }
 
@@ -275,7 +286,11 @@
   
   .content-side {
     min-height: auto;
-    padding: 2rem 0; /* Adjust padding for mobile */
+    padding: 2rem 0;
+  }
+
+  .parallax-container {
+    padding: 0;
   }
 
   .image-side {
@@ -305,8 +320,7 @@
     right: auto;
   }
 
-  .accent-line,
-  .scroll-indicator {
+  .accent-line {
     display: none;
   }
 }
