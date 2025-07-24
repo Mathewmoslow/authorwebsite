@@ -1,0 +1,289 @@
+/* Global Layout Cleanup - Elegant and Polished Design */
+
+/* Reset excessive spacing and animations */
+* {
+  animation-duration: 0.3s !important; /* Reduce all animation times */
+}
+
+/* Clean Section Spacing */
+section {
+  padding: 60px 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+section:first-of-type {
+  padding-top: 0 !important;
+}
+
+/* Remove excessive animations */
+.fadeInUp,
+.fadeInLeft,
+.fadeIn,
+.floatIn {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Consistent Container System */
+.container,
+.grid-container,
+.book-container,
+.about-container,
+.footer-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  width: 100% !important;
+}
+
+/* Clean Grid System */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 40px !important;
+}
+
+/* Simplified Grid Items */
+.grid-item-4 { grid-column: span 4; }
+.grid-item-6 { grid-column: span 6; }
+.grid-item-8 { grid-column: span 8; }
+.grid-item-12 { grid-column: span 12; }
+
+/* Clean Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1.5rem !important;
+  line-height: 1.3 !important;
+  animation: none !important;
+}
+
+h1 { font-size: 3rem !important; }
+h2 { font-size: 2.25rem !important; }
+h3 { font-size: 1.75rem !important; }
+h4 { font-size: 1.5rem !important; }
+
+p {
+  margin-bottom: 1.25rem !important;
+  line-height: 1.7 !important;
+}
+
+/* REPLACE THIS SECTION IN global-layout.css */
+/* Find and replace the entire "Clean Button Styles" section with this: */
+
+/* Clean Button Styles */
+.btn {
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  border-radius: 6px !important; /* Added slight rounding */
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  border: none !important;
+  cursor: pointer !important;
+  animation: none !important;
+}
+
+.btn-primary {
+  background: #8B0000 !important;
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background: #a00000 !important;
+  transform: translateY(-1px) !important;
+}
+
+.btn-secondary {
+  background: white !important;
+  color: #333 !important;
+  border: 1px solid #ddd !important;
+}
+
+.btn-secondary:hover {
+  background: #f5f5f5 !important;
+  border-color: #bbb !important;
+}
+
+/* Remove all decorative elements that add clutter */
+.accent-line,
+.decorative-element,
+.ornament,
+.pattern-overlay,
+.gradient-overlay:not(.hero-overlay) {
+  display: none !important;
+}
+
+/* Clean Book Display */
+.book-display {
+  perspective: none !important;
+  margin-bottom: 2rem;
+}
+
+.book-cover {
+  transform: none !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+  transition: transform 0.3s ease !important;
+}
+
+.book-cover:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+}
+
+/* Clean Navigation - removed forced background */
+.main-nav {
+  transition: all 0.3s ease !important;
+}
+
+.nav-container {
+  padding: 0 2rem !important;
+}
+
+/* Remove parallax effects */
+.parallax,
+.parallax-container,
+.content-wrapper[style*="transform"] {
+  transform: none !important;
+}
+
+/* Clean Book Actions */
+.book-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.book-actions .btn {
+  flex: 1;
+  min-width: 150px;
+  text-align: center;
+}
+
+/* Clean Image Styling */
+img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Remove excessive shadows and effects */
+.shadow-lg,
+.shadow-xl,
+.shadow-2xl {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* Clean Hero Section */
+.hero {
+  min-height: 70vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Clean Footer */
+footer {
+  background: #1a1a1a !important;
+  padding: 60px 0 30px !important;
+  margin-top: 80px !important;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  opacity: 0.7;
+}
+
+/* Responsive Cleanup */
+@media (max-width: 968px) {
+  section {
+    padding: 40px 0 !important;
+  }
+  
+  .grid-container {
+    gap: 30px !important;
+  }
+  
+  .grid-item-4,
+  .grid-item-6,
+  .grid-item-8 {
+    grid-column: span 12;
+  }
+  
+  h1 { font-size: 2.5rem !important; }
+  h2 { font-size: 2rem !important; }
+  h3 { font-size: 1.5rem !important; }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 30px 0 !important;
+  }
+  
+  .container,
+  .grid-container {
+    padding: 0 1.5rem !important;
+  }
+  
+  .book-actions {
+    flex-direction: column;
+  }
+  
+  .book-actions .btn {
+    width: 100%;
+  }
+  
+  h1 { font-size: 2rem !important; }
+  h2 { font-size: 1.75rem !important; }
+  h3 { font-size: 1.35rem !important; }
+}
+
+/* Audio players - keep visible but clean up */
+.media-player,
+.audio-player,
+.sidebar-player,
+.floating-player,
+.bottom-audio-bar {
+  /* Remove display: none to keep audio players visible */
+}
+
+/* Ensure clean transitions */
+* {
+  transition-duration: 0.2s !important;
+  transition-timing-function: ease !important;
+}
+
+/* Remove any fixed/sticky elements that create layout issues */
+.sticky,
+.fixed {
+  position: relative !important;
+}
+
+/* Clean up empty space at bottom */
+body {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.main-content,
+#root,
+.app-wrapper {
+  min-height: auto !important;
+  padding-bottom: 0 !important;
+}

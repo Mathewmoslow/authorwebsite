@@ -8,7 +8,9 @@ import SecondNovel from "./components/SecondNovel";
 import BottomAudioBar from "./components/BottomAudioBar";
 import Footer from "./components/Footer";
 import { useAppContext } from "./context/AppContext";
-import "./index.css";
+import './styles/global-layout.css';
+import './styles/performance-fixes.css';
+import './styles/header-fix.css'; 
 
 function App() {
   const { setAudioPlayerVisible } = useAppContext();

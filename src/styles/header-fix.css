@@ -1,0 +1,86 @@
+/* Header Position and Overlay Fix */
+
+/* Remove body padding that pushes content down */
+body {
+  padding-top: 0 !important;
+}
+
+/* Fix hero section to start at top */
+.hero,
+#hero-section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Ensure header overlays hero */
+.main-nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  transition: all 0.3s ease !important;
+  height: 70px;
+}
+
+/* Initial state - transparent */
+.main-nav:not(.scrolled) {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Scrolled state - crimson with opacity */
+.main-nav.scrolled {
+  background-color: rgba(139, 0, 0, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
+  height: 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure nav text is visible on hero */
+.main-nav:not(.scrolled) .logo a,
+.main-nav:not(.scrolled) .nav-link {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.main-nav.scrolled .logo a {
+  color: white !important;
+}
+
+.main-nav.scrolled .nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.main-nav.scrolled .nav-link:hover {
+  color: white !important;
+}
+
+/* Fix nav container alignment */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Ensure hero content doesn't get hidden behind nav */
+.hero-content-wrapper {
+  padding-top: 100px; /* Give space for the nav */
+}
+
+/* Mobile menu background */
+@media (max-width: 768px) {
+  .nav-menu.active {
+    background-color: rgba(46, 46, 46, 0.98) !important;
+    top: 60px;
+  }
+}

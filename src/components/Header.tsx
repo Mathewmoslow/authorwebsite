@@ -5,42 +5,29 @@ const Header: React.FC = () => {
 
   // Change nav background on scroll
   useEffect(() => {
-    const nav = document.querySelector(".main-nav");
+  const nav = document.querySelector(".main-nav");
 
-    const handleScroll = (): void => {
-      if (!nav) return;
+  const handleScroll = () => {
+    if (!nav) return;
 
-      const scrollY = window.scrollY;
+    const scrollY = window.scrollY;
 
-      if (scrollY === 0) {
-        nav.classList.remove("scrolled");
-        nav.setAttribute(
-          "style",
-          "background: transparent; position: absolute; box-shadow: none;"
-        );
-      } else if (scrollY > 0 && scrollY <= 50) {
-        nav.classList.add("scrolled");
-        nav.setAttribute(
-          "style",
-          "background: rgba(139, 0, 0, 0.6); position: fixed; box-shadow: none;"
-        );
-      } else {
-        nav.classList.add("scrolled");
-        nav.setAttribute(
-          "style",
-          "background: rgba(139, 0, 0, 1); position: fixed; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);"
-        );
-      }
-    };
+    if (scrollY > 50) {
+      nav.classList.add("scrolled");
+    } else {
+      nav.classList.remove("scrolled");
+    }
+  };
 
-    // Run once on initial load
-    handleScroll();
+  // Set initial state
+  handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  window.addEventListener("scroll", handleScroll);
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
 
   // Handle menu toggle
   const toggleMenu = (): void => {

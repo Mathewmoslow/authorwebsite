@@ -1,0 +1,164 @@
+/* Performance and Layout Fixes */
+
+/* 1. Fix jerky scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove performance-heavy properties */
+* {
+  will-change: auto !important;
+  animation-duration: 0.2s !important; /* Faster animations */
+  animation-fill-mode: both !important;
+}
+
+/* 2. Fix navigation background transition on scroll */
+.main-nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent;
+  transition: background-color 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
+  height: 70px;
+}
+
+/* Override the global-layout.css nav styles */
+.main-nav:not(.scrolled) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+.main-nav.scrolled {
+  background-color: rgba(139, 0, 0, 1) !important;
+  height: 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Add padding to body for fixed nav */
+body {
+  padding-top: 70px;
+}
+
+/* REPLACE THIS SECTION IN performance-fixes.css */
+/* Find and replace the entire "Fix button consistency" section with this: */
+
+/* 3. Fix button consistency */
+.book-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.book-actions .btn {
+  flex: 1 1 0; /* Equal flex basis */
+  min-width: 120px;
+  max-width: 200px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.75rem 1.5rem !important; /* Consistent padding */
+  border-radius: 6px !important; /* Added slight rounding */
+}
+
+/* Ensure buttons don't resize based on content */
+@media (min-width: 768px) {
+  .book-actions {
+    max-width: 600px; /* Limit total width */
+  }
+}
+
+/* 4. Restore media player */
+.media-player,
+.audio-player,
+.sidebar-player,
+.floating-player,
+.bottom-audio-bar {
+  display: block !important; /* Restore display */
+}
+
+/* Floating audio player styles */
+.floating-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background: rgba(46, 46, 46, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+}
+
+/* 5. Performance optimizations */
+img {
+  loading: lazy; /* Note: This is an HTML attribute, not CSS */
+  content-visibility: auto;
+}
+
+/* Reduce repaints during scroll */
+.hero,
+.book-display,
+.about-image {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* 6. Fix slow initial load */
+/* Reduce animation delays */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+section {
+  animation: fadeIn 0.3s ease-out !important;
+}
+
+/* Remove heavy shadows during load */
+.book-cover,
+.about-image,
+.shadow-lg,
+.shadow-xl {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+  transition: box-shadow 0.3s ease !important;
+}
+
+.book-cover:hover,
+.about-image:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+}
+
+/* 7. Responsive button fixes */
+@media (max-width: 768px) {
+  .book-actions {
+    flex-wrap: wrap;
+  }
+  
+  .book-actions .btn {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-actions {
+    flex-direction: column;
+  }
+  
+  .book-actions .btn {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: none;
+  }
+}
